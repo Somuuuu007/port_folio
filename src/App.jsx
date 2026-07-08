@@ -8,8 +8,11 @@ import MarqueeDivider from './components/MarqueeDivider'
 import Repo from './components/Repo'
 import Faq from './components/Faq'
 import Contact from './components/Contact'
+import { useSmoothScroll } from './hooks/useSmoothScroll'
 
 export default function App() {
+  useSmoothScroll()
+
   return (
     <>
       {/* full-page texture + custom cursor + fixed OS chrome */}
