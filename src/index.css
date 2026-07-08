@@ -41,6 +41,28 @@
 }
 
 /* ------------------------------------------------------------------ *
+ * Custom cursor — when active (class added by JS on fine pointers), hide the
+ * native cursor on EVERYTHING. Links, buttons, the hold zone and minimap set
+ * their own `cursor: pointer`, which would otherwise beat body{cursor:none}
+ * and flash the OS pointer. Gated by the class so touch keeps native behavior.
+ * ------------------------------------------------------------------ */
+html.has-custom-cursor,
+html.has-custom-cursor *,
+html.has-custom-cursor *::before,
+html.has-custom-cursor *::after {
+  cursor: none !important;
+}
+
+/* Hide native scrollbars (the minimap is the scroll indicator) so the OS
+ * cursor never appears over the scroller — scrolling still works everywhere. */
+* {
+  scrollbar-width: none; /* Firefox */
+}
+*::-webkit-scrollbar {
+  display: none; /* WebKit — Chrome / Safari / Edge / Brave */
+}
+
+/* ------------------------------------------------------------------ *
  * Components — the two hero CTA cells invert on hover (ink bg / paper
  * text). Overrides the global a:hover dim so the fill stays crisp.
  * ------------------------------------------------------------------ */

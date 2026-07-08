@@ -17,7 +17,9 @@ export default function CustomCursor() {
     const label = labelRef.current
     if (!dot || !label) return
 
-    document.body.style.cursor = 'none'
+    // class drives a global `cursor: none !important` (see index.css) so the OS
+    // pointer stays hidden over links / buttons / hold zone / scroller too
+    document.documentElement.classList.add('has-custom-cursor')
     let shown = false
 
     const move = (e) => {
@@ -64,7 +66,7 @@ export default function CustomCursor() {
       document.removeEventListener('mouseover', over)
       document.removeEventListener('mouseout', out)
       document.removeEventListener('mouseleave', leave)
-      document.body.style.cursor = ''
+      document.documentElement.classList.remove('has-custom-cursor')
     }
   }, [])
 
