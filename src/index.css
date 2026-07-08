@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------ *
+ * Base — warm paper + ink, terminal/mono aesthetic.
+ * Tokens live in tailwind.config.js (ink / paper / hairline / panel).
+ * ------------------------------------------------------------------ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: #e7e4dc;
+    color: #0b0b0b;
+    font-family: 'Space Grotesk', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  a {
+    color: #0b0b0b;
+    text-decoration: none;
+  }
+  a:hover {
+    opacity: 0.62;
+  }
+
+  /* anchor jumps (minimap / CTAs) land below the 36px fixed status bar */
+  section[id] {
+    scroll-margin-top: 36px;
+  }
+
+  ::selection {
+    background: #0b0b0b;
+    color: #e7e4dc;
+  }
+
+  pre {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Components — the two hero CTA cells invert on hover (ink bg / paper
+ * text). Overrides the global a:hover dim so the fill stays crisp.
+ * ------------------------------------------------------------------ */
+@layer components {
+  .cta-cell {
+    transition:
+      background 0.2s ease,
+      color 0.2s ease;
+  }
+  .cta-cell:hover {
+    background: #0b0b0b;
+    color: #e7e4dc;
+    opacity: 1;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Keyframes (ported verbatim from the design prototype)
+ * ------------------------------------------------------------------ */
+@keyframes blink {
+  0%,
+  48% {
+    opacity: 1;
+  }
+  48.01%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes revealUp {
+  from {
+    opacity: 0;
+    transform: translateY(34px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes spinslow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scan {
+  from {
+    transform: translateY(-120%);
+  }
+  to {
+    transform: translateY(120%);
+  }
+}
+
+@keyframes fieldpulse {
+  0%,
+  100% {
+    opacity: 0.14;
+  }
+  50% {
+    opacity: 0.22;
+  }
+}
+
+/* Respect users who prefer reduced motion — kill the ambient loops. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
